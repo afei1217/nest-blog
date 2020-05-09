@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as APP_CONFIG from '@app/app.config';
 
+import { UserModule } from 'modules/user/user.module'
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -17,6 +19,7 @@ import { AppService } from './app.service';
             entities: [APP_CONFIG.APP.ROOT_PATH + '/**/*.model.js'],
             synchronize: true,
         }),
+        UserModule
     ],
     controllers: [AppController],
     providers: [AppService],
