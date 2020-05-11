@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 import { ApiValidationPipe } from '@app/pipes/apiValidation.pipe';
+import { HttpExceptionFilter } from './filters/error.filter';
 
 import { environment, isDevMode } from '@app/app.environment';
 
@@ -20,10 +21,10 @@ Object.assign(global.console, {
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
 
+    app.useGlobalFilters(new HttpExceptionFilter());
     app.useGlobalPipes(new ApiValidationPipe());
     await app.listen(APP_CONFIG.APP.PORT);
 }
 bootstrap().then(() => {
-    console.log(APP_CONFIG.APP.ROOT_PATH + '/**/*.model.ts');
     console.info(`af-blog Run！port at ${APP_CONFIG.APP.PORT}, env: ${environment}`);
 });
