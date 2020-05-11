@@ -17,6 +17,7 @@ export class ApiValidationPipe implements PipeTransform<any> {
         }
         const object = plainToClass(metatype, value);
         const errors = await validate(object);
+        console.log('error', value, errors);
         if (errors.length > 0) {
             const errorMessage = errors.map(error => Object.values(error.constraints).join(';')).join(';');
             throw new ApiValidationError(errorMessage);

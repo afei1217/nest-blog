@@ -25,7 +25,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         const resultError = isChildrenError && errorInfo.message || parentErrorInfo;
         const resultStatus = isChildrenError ? errorInfo.status : status;
         const data: THttpErrorResponse = {
-            status: EHttpStatus.ERROR,
+            code: EHttpStatus.ERROR,
             message: errorMessage,
             error: resultError,
             debug: isDevMode ? exception.stack : null

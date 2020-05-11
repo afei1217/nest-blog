@@ -6,8 +6,8 @@
 
 // 响应状态
 export enum EHttpStatus{
-    ERROR = 'error',
-    SUCCESS = 'success'
+    ERROR = -1,
+    SUCCESS = 200
 }
 
 export type TMessage = string;
@@ -18,7 +18,7 @@ export type TExceptionOption = TMessage | {
 
 // HTTP 状态返回
 export interface IHttpResponseBase {
-    status: EHttpStatus;
+    code: EHttpStatus;
     message: TMessage;
 }
 

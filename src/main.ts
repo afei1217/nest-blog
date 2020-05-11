@@ -1,8 +1,9 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 import { ApiValidationPipe } from '@app/pipes/apiValidation.pipe';
 import { HttpExceptionFilter } from './filters/error.filter';
+import { SuccessInterceptor } from '@app/interceptors/success.interceptor';
 
 import { environment, isDevMode } from '@app/app.environment';
 
@@ -23,6 +24,9 @@ async function bootstrap() {
 
     app.useGlobalFilters(new HttpExceptionFilter());
     app.useGlobalPipes(new ApiValidationPipe());
+    app.useGlobalInterceptors(
+        new SuccessInterceptor(new Reflector()),
+    );
     await app.listen(APP_CONFIG.APP.PORT);
 }
 bootstrap().then(() => {
