@@ -7,6 +7,7 @@
 const stringTag = '[object String]';
 const nullTag = '[object Null]';
 const undefinedTag = '[object Undefined]';
+const numberTag = '[object Number]';
 
 /**
  * 将对象转成该类型对应的tag eg: "[object String]"
@@ -66,4 +67,8 @@ export const isArray = Array.isArray;
 export const isString = value => {
     return typeof value == 'string' ||
         (!isArray(value) && isObjectLike(value) && baseGetTag(value) == stringTag);
+}
+export const isNumber = value => {
+    return typeof value == 'number' ||
+        (isObjectLike(value) && objectToString.call(value) == numberTag);
 }

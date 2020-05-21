@@ -13,7 +13,7 @@ import { HttpException, HttpStatus } from '@nestjs/common';
  * @example new ValidationError('错误信息')
  * @example new ValidationError(new Error())
  */
-export class ApiValidationError extends HttpException {
+export class ApiError extends HttpException {
     constructor(error?: any) {
         super(error || TEXT.VALIDATION_ERROR_DEFAULT, HttpStatus.BAD_REQUEST);
     }

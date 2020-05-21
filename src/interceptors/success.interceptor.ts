@@ -9,7 +9,7 @@ import { Reflector } from "@nestjs/core";
 import { Observable } from "rxjs";
 import { map } from 'rxjs/operators';
 
-import { THttpSuccessResponse, TMessage, EHttpStatus } from "@app/interfaces/http.interface";
+import { THttpSuccessResponse, TMessage } from "@app/interfaces/http.interface";
 import * as META from '@app/constants/meta.constant';
 import * as TEXT from '@app/constants/text.constant';
 
@@ -26,7 +26,7 @@ export class SuccessInterceptor<T> implements NestInterceptor<T, THttpSuccessRes
         return call$.pipe(map((data: any) => {
             const result = data;
             return {
-                code: EHttpStatus.SUCCESS,
+                code: 200,
                 message,
                 result
             }

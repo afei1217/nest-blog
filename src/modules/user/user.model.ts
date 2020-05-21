@@ -26,6 +26,7 @@ export class UserModel extends BaseModel{
     password: string;
 
     @Column({
+        nullable: true,
         type: 'varchar',
         length: 50,
         comment: '邮箱'
@@ -35,12 +36,14 @@ export class UserModel extends BaseModel{
     @Column({
         nullable: false,
         type: 'varchar',
-        length: 11,
+        length: 15,
         comment: '手机号'
     })
     mobile_number: string;
 
-    @Column()
+    @Column({
+        nullable: true,
+    })
     avatar: string;
 
     // 用户接收通知方式 no-不接收；comment评论；focus-关注；all-所有

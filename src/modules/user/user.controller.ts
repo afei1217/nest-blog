@@ -6,15 +6,16 @@
 
 import { Controller, Get, Query, Post, Body, HttpCode, HttpStatus, } from "@nestjs/common";
 import { UserService } from "./user.service";
-import { UserLoginDto } from './user.dto'
+import {
+    UserLoginDto,
+    UserRegisterDto
+} from './user.dto'
 
 @Controller('user')
 export class UserController {
     constructor(
         private userService: UserService
-    ) {
-        console.log('aa');
-    }
+    ) {}
 
     /**
      * 获取用户信息
@@ -28,9 +29,12 @@ export class UserController {
     }
 
     @Post('login')
-    @HttpCode(HttpStatus.OK)
     userLogin(@Body() body: UserLoginDto): Promise<any> {
-        console.log('body', body);
-        return Promise.resolve('login success!');
+        return this.userService.userLogin(body);
+    }
+
+    @Post('register')
+    userRegister(@Body() body: UserRegisterDto): Promise<any> {
+        return this.userService.userRegister(body);
     }
 }

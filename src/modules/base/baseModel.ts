@@ -31,8 +31,7 @@ export abstract class BaseModel {
     updatedAt: Date;
 
     @Column('timestamp', {
-        nullable: false,
-        default: () => 'CURRENT_TIMESTAMP',
+        nullable: true,
         name: 'delete_at',
         comment: '删除时间',
     })
