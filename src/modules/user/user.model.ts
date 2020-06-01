@@ -64,6 +64,4 @@ export class UserModel extends BaseModel{
     })
     status: number
 
-
-
 }

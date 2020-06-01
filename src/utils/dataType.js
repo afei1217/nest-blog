@@ -8,6 +8,24 @@ const stringTag = '[object String]';
 const nullTag = '[object Null]';
 const undefinedTag = '[object Undefined]';
 const numberTag = '[object Number]';
+const objectProto = Object.prototype;
+const funcProto = Function.prototype,
+const hasOwnProperty = objectProto.hasOwnProperty;
+const funcToString = funcProto.toString;
+const objectCtorString = funcToString.call(Object);
+
+
+
+/**
+ * 获取一个参数的proto
+ */
+const overArg = (func, transform) => {
+    return arg => {
+        return func(transform(arg));
+    };
+}
+const getPrototype = overArg(Object.getPrototypeOf, Object);
+
 
 /**
  * 将对象转成该类型对应的tag eg: "[object String]"
@@ -46,6 +64,31 @@ export const isObjectLike = value => {
 }
 
 /**
+ * 判断一个数据是否是单纯的对象
+ *
+ * function Foo() {
+ *   this.a = 1;
+ * }
+ *
+ * _.isPlainObject(new Foo);                // => false
+ * _.isPlainObject([1, 2, 3]);              // => false
+ * _.isPlainObject({ 'x': 0, 'y': 0 });     // => true
+ * _.isPlainObject(Object.create(null));    // => true
+ */
+export const isPlainObject = value => {
+    if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
+        return false;
+    }
+    const proto = getPrototype(value);
+    if (proto === null) {
+        return true;
+    }
+    const Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+    return typeof Ctor == 'function' && Ctor instanceof Ctor &&
+        funcToString.call(Ctor) == objectCtorString;
+}
+
+/**
  * 判断是否是数组
  */
 export const isArray = Array.isArray;
@@ -71,4 +114,16 @@ export const isString = value => {
 export const isNumber = value => {
     return typeof value == 'number' ||
         (isObjectLike(value) && objectToString.call(value) == numberTag);
+}
+
+export const isNaN = value => {
+    return isNumber(value) && value != +value;
+}
+
+export const isUndefined = value => {
+    return value === undefined;
+}
+
+export const isNull = value => {
+    return value === null;
 }
