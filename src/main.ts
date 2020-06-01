@@ -22,7 +22,7 @@ Object.assign(global.console, {
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     // 设置路由前缀
-    app.setGlobalPrefix('v1/api');
+    app.setGlobalPrefix('v1');
 
     app.useGlobalFilters(new HttpExceptionFilter());
     app.useGlobalPipes(new ApiValidationPipe());

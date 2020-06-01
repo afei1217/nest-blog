@@ -24,11 +24,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         const errorMessage = isNumber(errorOption) ? null : errorOption.errorMessage;
         const errorCode = isNumber(errorOption) ? errorOption : errorOption.code;
         const message = ErrorCode[errorCode] || TEXT.HTTP_DEFAULT_ERROR_TEXT;
-        console.log('filter', errorOption, errorCode);
 
-        const errorInfo = isNumber(errorOption) ? null : errorOption.errorMessage;
-        const isChildrenError = errorInfo && errorInfo.status && errorInfo.message;
-        const resultStatus = isChildrenError ? errorInfo.status : status;
         const data: THttpErrorResponse = {
             code: errorCode,
             message: message,
@@ -39,6 +35,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
             data.error = '资源不存在';
             data.message = `接口 ${request.method} -> ${request.url} 无效`;
         }
-        return response.status(resultStatus).jsonp(data);
+        return response.status(HttpStatus.OK).jsonp(data);
     }
 }
