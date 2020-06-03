@@ -4,10 +4,17 @@
  * @Description: 程序配置文件
  */
 
+import path = require('path');
+
 // 系统基本配置
 export const APP = {
     PORT: 3000,
     ROOT_PATH: __dirname,
+}
+
+export const FILE = {
+    UPLOAD_ROOT: path.join(__dirname, '../fileUpload'),
+    API_PREFIX: '/static'
 }
 
 // mysql配置

@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as APP_CONFIG from '@app/app.config';
 
 import { UserModule } from 'modules/user/user.module'
+import { ArticleModule } from 'modules/article/article.module'
+import { FileModule } from 'modules/file/file.module'
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -19,7 +21,9 @@ import { AppService } from './app.service';
             entities: [APP_CONFIG.APP.ROOT_PATH + '/**/*.model.js'],
             synchronize: true,
         }),
-        UserModule
+        UserModule,
+        ArticleModule,
+        FileModule
     ],
     controllers: [AppController],
     providers: [AppService],

@@ -10,10 +10,15 @@
  * 2                        05                     01
  * 服务级错误(1系统级错误)      服务模块代码            具体错误代码
  */
+
+import * as TEXT from '@app/constants/text.constant'
 const ErrorCode = {
+
+    10001: TEXT.HTTP_DEFAULT_ERROR_TEXT,
 
     // 00 拦截层
     20001: '参数校验失败',
+
 
     // 01 用户模块
     20101: '该手机号已被使用',

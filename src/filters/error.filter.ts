@@ -9,7 +9,7 @@ import { TExceptionOption, TMessage, THttpErrorResponse } from "@app/interfaces/
 import * as afType from '@app/utils/dataType.js';
 import { isDevMode } from "@app/app.environment";
 import ErrorCode from '@app/constants/apiCode.constant'
-import * as TEXT from '@app/constants/text.constant'
+
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -22,8 +22,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
         const isNumber = (value): value is TMessage => afType.isNumber(value);
 
         const errorMessage = isNumber(errorOption) ? null : errorOption.errorMessage;
-        const errorCode = isNumber(errorOption) ? errorOption : errorOption.code;
-        const message = ErrorCode[errorCode] || TEXT.HTTP_DEFAULT_ERROR_TEXT;
+        const errorCode = isNumber(errorOption) ? errorOption : errorOption.code || 10001;
+        const message = ErrorCode[errorCode];
+
+        console.error('errorFilter', exception, host)
 
         const data: THttpErrorResponse = {
             code: errorCode,
